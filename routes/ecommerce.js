@@ -13,7 +13,7 @@ const productos = [{id:1,nombre:'Galaxy S24 Ultra 1TB de S/7,149 a S/5,999*',src
                     {id:3,nombre:'Galaxy S24 256GB de S/4,199 a S/3,049*',src:"https://images.samsung.com/is/image/samsung/assets/pe/2024/landing/S24BLUE789.png?$448_N_PNG$"}];
 
 router.get('/', usuarioController.isLoggedIn, (req, res, next) => {
-    res.render('productos', {prods: productos, titulo: 'productos', path: '/',user:  res.locals.user? res.locals.user:null });
+    res.render('bienvenida', {prods: productos, titulo: 'bienvenida', path: '/',user:  res.locals.user? res.locals.user:null });
 });
 
 // GET requiere una coincidencia exacta en la ruta

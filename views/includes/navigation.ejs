@@ -6,6 +6,32 @@
                     <img style='height: 100%; width: 100%; object-fit: contain' src="https://static.vecteezy.com/system/resources/thumbnails/014/018/566/small_2x/samsung-logo-on-transparent-background-free-vector.jpg"
                 </div>
             </li>
+            <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/mobile">
+                    mobile
+                </a>
+            </li>
+            <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/tv-audio">
+                    TV & Audio
+                </a>
+            </li>
+            <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/electrodomesticos">
+                    Electrodomésticos
+                </a>
+            </li>
+            <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/tecnologia-ai">
+                    Tecnología AI
+                </a>
+            </li>
+            <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/ventas-especiales">
+                    Ventas especiales
+                </a>
+            </li>
+   
             <% if (typeof user == 'object' && user) { %>
                 <form class="box-center_flex" action="/usuario/logout" method="GET">
                     <a  class="box-center_flex " >
@@ -31,7 +57,8 @@
             </li>
             <% if (typeof user == 'object' && user){ %>
                 <li class="main-header__item box-center_flex"><%= user.nombres %></li>
-            <% }%>  
+            <% }%> 
+            
         </ul>
     </nav>
 </header>
