@@ -5,7 +5,7 @@ const express = require('express');
 
 const raizDir = require('../utils/path');
 const ecommerceData = require('./ecommerce');
-const usuarioController= require('../controllers/usuarioController')
+const usuarioController= require('../controllers/usuario')
 
 const router = express.Router();
 

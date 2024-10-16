@@ -6,7 +6,7 @@ const raizDir = require('../utils/path');
 
 
 const router = express.Router();
-const usuarioController= require('../controllers/usuarioController')
+const usuarioController= require('../controllers/usuario')
 
 const productos_inicio = [{id:1,nombre:'Galaxy S24 Ultra 1TB de S/7,149 a S/5,999*',src:"https://images.samsung.com/is/image/samsung/assets/pe/2024/landing/galaxy-blue-cel.png?$448_N_PNG$"},
                     {id:2,nombre:'¡Ahora con AI! Galaxy A55 128GB a S/1,399*',src:"https://images.samsung.com/is/image/samsung/assets/pe/2024/landing/Framvdfvd269.png?$448_N_PNG$"},
