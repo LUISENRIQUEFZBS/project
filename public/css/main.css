@@ -53,6 +53,9 @@ main {
   background-color: black;
   color:white;
 }
+.main-header__item__logo{
+
+}
 
 .grid {
   display: flex;
