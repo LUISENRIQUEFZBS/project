@@ -4,14 +4,17 @@ const path = require('path');
 const express = require('express');
 
 const raizDir = require('../utils/path');
-const ecommerceData = require('./ecommerce');
 const usuarioController= require('../controllers/usuario')
 
 const router = express.Router();
 
-router.post('/login', usuarioController.login);
-router.get('/logout', usuarioController.logout);
-router.post('/signup', usuarioController.signup);
+router.post('/login', usuarioController.postLogin);
+router.post('/logout', usuarioController.postLogout);
+router.post('/signup', usuarioController.postSignup);
+
+// GET 
+router.get('/login',usuarioController.getLogin);
+router.get('/signup', usuarioController.getSignup);
 
 module.exports = router;
 // exports.usuarios = usuarios;

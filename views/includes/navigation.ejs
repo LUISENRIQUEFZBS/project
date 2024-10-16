@@ -35,7 +35,7 @@
             </li>
    
             <% if (typeof user == 'object' && user) { %>
-                <form class="box-center_flex" action="/usuario/logout" method="GET">
+                <form class="box-center_flex" action="/usuario/logout" method="POST">
                     <a  class="box-center_flex " >
                         <button type="submit" style="background-color:transparent;border:none;font-size:inherit;  cursor:pointer;">
                             <i class="fa-solid fa-right-from-bracket"></i>
@@ -44,7 +44,7 @@
                 </form>
             <% } else{ %>  
                 <li class="main-header__item box-center_flex">
-                    <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">
+                    <a class="<%= path === '/login' ? 'active' : '' %>" href="/usuario/login">
                         <i class="fa-regular fa-user"></i>
                     </a>
                 </li>

@@ -1,11 +1,16 @@
 
 // para usar talvez un "npm install jsonwebtoken" en commandos
 const jwt= require('jsonwebtoken');
-// para usar talvez un "npm install bcrypt" en commandos
-// const bcrypt = require("bcrypt");
 
 const usuarios = [{id:'1', nombres:'Luis Enrique',apellidos:'Fernandez Bardales' ,email:'luis@gmail.com' ,password:'1234'}];
 const jwt_secret='grupo-4'
+
+exports.getLogin = async (req, res, next) => {
+    res.render('login-usuario', { titulo: 'Inicio de seción del cliente', path: '/' });
+}
+exports.getSignup = async (req, res, next) => {
+    res.render('signup-usuario', { titulo: 'Creación de nueva cuenta', path: '/' });
+}
 
 exports.isLoggedIn=async(req,res,next)=>{
     if(req.cookies.jwt){
@@ -25,7 +30,7 @@ exports.isLoggedIn=async(req,res,next)=>{
     }
     return next();
 }
-exports.login = async (req, res, next) => {
+exports.postLogin = async (req, res, next) => {
     const {email,password}=req.body;
     if (!(email && password)) {
         return res.status(404).json({ error: "Se requiere todos los campos llenos" });
@@ -45,7 +50,7 @@ exports.login = async (req, res, next) => {
         return res.status(400).json({ error: "usuario no encontrado" });
     }
 }
-exports.logout = async (req, res, next) => {
+exports.postLogout = async (req, res, next) => {
     // console.log('getout')
     res.cookie(`jwt`, `loggedout`, {
         expires: new Date(Date.now() + 10 * 1000),
@@ -54,7 +59,7 @@ exports.logout = async (req, res, next) => {
     //   res.status(200).json({ status: `success` });
       res.redirect('/')
 }
-exports.signup = async (req, res, next) => {
+exports.postSignup = async (req, res, next) => {
     const {nombres,apellidos,email,password,password2}=req.body;
     if (!(nombres && apellidos && email && password && password2)) {
         return res.status(404).json({ error: "Se requiere todos los campos llenos" });
