@@ -1,8 +1,10 @@
 
+const Usuario = require('../models/usuario');
+
 // para usar talvez un "npm install jsonwebtoken" en commandos
 const jwt= require('jsonwebtoken');
 
-const usuarios = [{id:'1', nombres:'Luis Enrique',apellidos:'Fernandez Bardales' ,email:'luis@gmail.com' ,password:'1234'}];
+// const usuarios = [{id:'1', nombres:'Luis Enrique',apellidos:'Fernandez Bardales' ,email:'luis@gmail.com' ,password:'1234'}];
 const jwt_secret='grupo-4'
 
 exports.getLogin = async (req, res, next) => {
@@ -14,9 +16,12 @@ exports.getSignup = async (req, res, next) => {
 
 exports.isLoggedIn=async(req,res,next)=>{
     if(req.cookies.jwt){
+
+        const usuarios= await Usuario.getAll();
         try{
         const token= req.cookies.jwt;
         const decoded = jwt.verify(token, jwt_secret);
+            
         const user=usuarios.find(x=>x.id==decoded.id);
         if (user) {
             const currentUser = user;
@@ -35,6 +40,7 @@ exports.postLogin = async (req, res, next) => {
     if (!(email && password)) {
         return res.status(404).json({ error: "Se requiere todos los campos llenos" });
     }
+    const usuarios= await Usuario.getAll();
     const user=usuarios.find(x=>x.password==password && x.email==email);
     if(user) {
         const token= jwt.sign({id: user.id},jwt_secret,{expiresIn: "120d"})
@@ -67,7 +73,9 @@ exports.postSignup = async (req, res, next) => {
     if(password!=password2){
         return res.status(404).json({ error: "Se requiere que las contraseñas sean iguales" });
     }
-    const new_user={id:usuarios.length+1, nombres,apellidos,email,password}
-    usuarios.push(new_user)
+    const usuarios= await Usuario.getAll();
+    const new_user = new Usuario(usuarios.length+1, nombres, apellidos, email,password);
+    new_user.save()
+  
     res.redirect('/')
 }
