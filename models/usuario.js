@@ -20,7 +20,6 @@ const getUsuariosFromFile =   cb => {
     });
 };
 
-
 module.exports = class Usuario{
     constructor(id,nombres, apellidos,email,password){
         this.id=id;
@@ -38,7 +37,7 @@ module.exports = class Usuario{
             });
         });
     }
-    static  fetchAll(cb) {
+    static fetchAll(cb) {
         getUsuariosFromFile(cb);
     }
     static async getAll() {

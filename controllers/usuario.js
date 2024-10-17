@@ -18,6 +18,7 @@ exports.isLoggedIn=async(req,res,next)=>{
     if(req.cookies.jwt){
 
         const usuarios= await Usuario.getAll();
+        
         try{
         const token= req.cookies.jwt;
         const decoded = jwt.verify(token, jwt_secret);
@@ -41,6 +42,7 @@ exports.postLogin = async (req, res, next) => {
         return res.status(404).json({ error: "Se requiere todos los campos llenos" });
     }
     const usuarios= await Usuario.getAll();
+
     const user=usuarios.find(x=>x.password==password && x.email==email);
     if(user) {
         const token= jwt.sign({id: user.id},jwt_secret,{expiresIn: "120d"})
