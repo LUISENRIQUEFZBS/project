@@ -20,15 +20,6 @@ const getUsuariosFromFile =   cb => {
     });
 };
 
-const getUsuariosFromFileAsync =  async  () => {
-    return JSON.parse(fs.readFileSync(u, `utf-8`));
-};
-
-// const items = JSON.parse(
-//     fs.readFileSync(`${__dirname}/../model/docsview.json`, `utf-8`)
-//   );
-
-// const usuarios = [{id:'1', nombres:'Luis Enrique',apellidos:'Fernandez Bardales' ,email:'luis@gmail.com' ,password:'1234'}];
 
 module.exports = class Usuario{
     constructor(id,nombres, apellidos,email,password){
