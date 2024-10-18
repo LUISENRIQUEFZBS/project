@@ -28,3 +28,12 @@ exports.getProductos = (req, res, next) => {
         });
     });
 }
+
+exports.getEditProductos = (req, res, next) => {
+    let productos;
+    res.render('admin/editar-producto', {
+        prods: productos, 
+        titulo: 'Administracion - Editar Producto', 
+        path: '/admin/editar-producto'
+    });
+}
