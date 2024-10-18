@@ -15,6 +15,9 @@ const usuarioRouter = require('./routes/usuario')
 const ecommerceRouter = require('./routes/ecommerce')
 
 
+const adminRouter = require('./routes/admin');
+
+
 const app = express();
 
 
@@ -28,6 +31,8 @@ app.use(express.static(path.join(raizDir, 'public')));
 
 // cookie parser
 app.use(cookieParser())
+
+app.use('/admin', adminRouter);
 
 app.use('/usuario',usuarioRouter)
 app.use(ecommerceRouter);
