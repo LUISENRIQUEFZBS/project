@@ -6,17 +6,12 @@
     <main>
         <h1>Editar Producto</h1>
         <form action="/admin/editar-producto/<%= producto.id %>" method="POST">
-            <label for="nombreproducto">Nombre:</label>
-            <input type="text" id="nombreproducto" name="nombreproducto" value="<%= producto.nombreproducto %>" required>
-
-            <label for="precio">Precio:</label>
-            <input type="number" id="precio" name="precio" value="<%= producto.precio %>" required>
-
-            <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" required><%= producto.descripcion %></textarea>
-
+            <input type="text" name="nombreproducto" value="<%= producto.nombreproducto %>" required>
+            <input type="text" name="urlImagen" value="<%= producto.urlImagen %>"> <!-- Campo para la nueva imagen -->
+            <input type="number" name="precio" value="<%= producto.precio %>" required>
+            <textarea name="descripcion" required><%= producto.descripcion %></textarea>
             <button type="submit">Actualizar</button>
-        </form>
+        </form>        
     </main>
 
     <%- include('../includes/end.ejs') %>

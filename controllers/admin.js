@@ -1,9 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
-const raizDir = require('../utils/path.js');
-const p = path.join(raizDir, 'data', 'productos.json');
-
 const Producto = require('../models/producto');
 
 exports.getCrearProducto = (req, res, next) => {
@@ -54,33 +48,24 @@ exports.getEditProductos = (req, res, next) => {
 // Controlador para guardar los cambios del producto editado
 exports.postEditProductos = (req, res, next) => {
     const productoId = req.params.id; // Obtiene el ID del producto de los parámetros de la URL
-    const updatedNombre = req.body.nombreproducto; // Obtiene los datos del formulario
-    const updatedPrecio = req.body.precio;
-    const updatedDescripcion = req.body.descripcion;
+    const updatedData = {
+        nombreproducto: req.body.nombreproducto,
+        precio: req.body.precio,
+        descripcion: req.body.descripcion,
+    };
 
-    // Usa el método fetchAll para obtener los productos
-    Producto.fetchAll(productos => {
-        const productoIndex = productos.findIndex(p => p.id === productoId);
-        if (productoIndex >= 0) {
-            // Actualiza el producto
-            const updatedProducto = { 
-                id: productoId,
-                nombreproducto: updatedNombre,
-                precio: updatedPrecio,
-                descripcion: updatedDescripcion,
-                // No necesitas actualizar la imagen, si no es necesario
-            };
-            productos[productoIndex] = updatedProducto; // Reemplaza el producto en el array
-            
-            fs.writeFile(p, JSON.stringify(productos), (err) => {
-                if (err) {
-                    console.error('No se pudo guardar el producto.');
-                }
-                res.redirect('/admin/productos'); // Redirige a la lista de productos
-            });
+    // Solo asigna la nueva URL de imagen si existe
+    if (req.body.urlImagen) {
+        updatedData.urlImagen = req.body.urlImagen;
+    }
+
+    // Actualiza el producto
+    Producto.update(productoId, updatedData, (result) => {
+        if (result) {
+            res.redirect('/admin/productos'); // Redirige si la actualización fue exitosa
         } else {
+            console.error('Producto no encontrado en la actualización.'); // Mensaje de depuración
             res.status(404).send('Producto no encontrado');
         }
     });
 };
-
