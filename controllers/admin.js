@@ -1,3 +1,9 @@
+const fs = require('fs');
+const path = require('path');
+
+const raizDir = require('../utils/path.js');
+const p = path.join(raizDir, 'data', 'productos.json');
+
 const Producto = require('../models/producto');
 
 exports.getCrearProducto = (req, res, next) => {
@@ -52,8 +58,8 @@ exports.postEditProductos = (req, res, next) => {
     const updatedPrecio = req.body.precio;
     const updatedDescripcion = req.body.descripcion;
 
-    // Aquí deberías tener lógica para actualizar el producto en el archivo JSON
-    getProductosFromFile(productos => {
+    // Usa el método fetchAll para obtener los productos
+    Producto.fetchAll(productos => {
         const productoIndex = productos.findIndex(p => p.id === productoId);
         if (productoIndex >= 0) {
             // Actualiza el producto
@@ -77,3 +83,4 @@ exports.postEditProductos = (req, res, next) => {
         }
     });
 };
+
