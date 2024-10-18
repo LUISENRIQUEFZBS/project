@@ -21,12 +21,13 @@ const getUsuariosFromFile =   cb => {
 };
 
 module.exports = class Usuario{
-    constructor(id,nombres, apellidos,email,password){
+    constructor(id,nombres, apellidos,email,password,isAdmin){
         this.id=id;
         this.nombres=nombres;
         this.apellidos=apellidos;
         this.email=email;
         this.password=password;
+        this.isAdmin=isAdmin;
     }
     save(){
         getUsuariosFromFile(usuarios => {
