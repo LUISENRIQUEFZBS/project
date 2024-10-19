@@ -3,6 +3,7 @@ const path = require('path');
 
 const raizDir = require('../utils/path.js');
 const p = path.join(raizDir, 'data', 'productos.json');
+const c = path.join(raizDir, 'data', 'info.json');
 
 const getProductosFromFile = (cb) => {
     fs.readFile(p, (err, fileContent) => {
@@ -88,5 +89,4 @@ module.exports = class Producto {
             });
         });
     }
-    
 }

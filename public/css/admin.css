@@ -87,5 +87,29 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 24px 8px;
+    gap: 24px;
+}
+
+.link-nuevo-producto {
+    background-color: #2089FF;
+    color: white;
+    border-radius: 24px;
+    padding: 8px;
+    text-decoration: none;
+    gap: 8px;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+}
+
+.controls-div {
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.container-btn-nuevo-producto {
+    display: flex;
+    justify-content: end;
 }
