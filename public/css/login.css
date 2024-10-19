@@ -2,19 +2,18 @@ main {
     max-width: 530px;
 }
 
+label {
+    font-weight:bold;
+}
 
-#container {
+.container {
     display: grid;
     gap: 50px;
 }
 
-form.form {
+.datos {
     display: grid;
     gap: 20px;
-}
-
-label {
-    font-weight:bold;
 }
 
 .box-center_flex {
@@ -70,6 +69,12 @@ label {
     box-sizing: border-box;
 }
 
+.inputText:focus {
+    border: 1px solid #c2c2c2;
+    outline: none;
+}
+
 .asterisco {
     color: red;
+    font-size: small;
 }
