@@ -23,10 +23,7 @@
                             <p class="product__category"><strong>Categoría:</strong> <%= producto.categoria %></p>
                         </div>
                         <div class="card__actions">
-                            <a href="/admin/editar-producto/<%= producto.id %>" class="btn">Editar</a>
-                            <form action="/admin/eliminar-producto" method="POST">
-                                <button class="btn" type="submit">Eliminar</button>
-                            </form>
+                            <%- include('../includes/agregar-al-carrito.ejs', {producto: producto}) %>
                         </div>
                     </article>
                 <% } %>

@@ -9,8 +9,9 @@ exports.postCrearProducto = (req, res, next) => {
     const urlImagen = req.body.urlImagen;
     const precio = req.body.precio;
     const descripcion = req.body.descripcion;
+    const categoria = req.body.categoria;  // Capturando la categoría
 
-    const producto = new Producto(nombreproducto, urlImagen, descripcion, precio);
+    const producto = new Producto(null, nombreproducto, urlImagen, precio, descripcion, categoria);
 
     producto.save();
     res.redirect('/admin/productos');
