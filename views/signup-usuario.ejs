@@ -8,12 +8,12 @@
 
     <main>
         <div class="box-center_flex">
-            <form action="/usuario/signup" method="POST">
-                    <div id="page-title" class="box-center_flex"><b>Crear nueva cuenta de cliente</b></div>
+            <form class="container" action="/usuario/signup" method="POST">
+                <div class="datos">
+                    <div id="page-title"><b>Crear nueva cuenta de cliente</b></div>
                     <legend class="legend">
                         <div>Información Personal</div>
                     </legend>
-                    <br>
                     <div>
                         <label>Nombres <span class="asterisco">*</span></label>
                         <input type="text" name="nombres" class="inputText" autocomplete="off" required>
@@ -22,10 +22,11 @@
                         <label>Apellidos <span class="asterisco">*</span></label>
                         <input type="text" name="apellidos" class="inputText" autocomplete="off" required>
                     </div>
+                </div>
+                <div class="datos">
                     <legend class="legend">
                         <div>Información de inicio de sesión</div>
                     </legend>
-                    <br>
                     <div>
                         <label>Correo electrónico <span class="asterisco">*</span></label>
                         <input type="email" name="email" class="inputText" autocomplete="off" required>
@@ -39,13 +40,16 @@
                         <input type="password" name="password2" class="inputText" autocomplete="off" required>
                     </div>
                     <div>
+                        <span class="asterisco">*Campos obligatorios</span>
+                    </div>
+                    <div>
                         <button type="submit" class="btn-samsung">
                             <span>Crear una cuenta</span>
                         </button>
                     </div>
+                </div>
             </form>
         </div>
-
 
     </main>
 <%- include('includes/end.ejs') %>
