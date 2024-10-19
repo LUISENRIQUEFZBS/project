@@ -6,9 +6,9 @@
 <body>
     <%- include('includes/navigation.ejs') %>
     <main>
-        <div class="container">
-            <div class="box-left_flex block-main">
-                <form action="/usuario/login" method="POST">
+        <div id="container">
+            <div class="box-left_flex">
+                <form class="form" action="/usuario/login" method="POST">
                     <div id="page-title"><b>Inicio de sesión de cliente</b></div>
                     <legend class="legend">
                         <div>Clientes registrados</div>
@@ -33,7 +33,7 @@
                 </form>
             </div>
             <div class="box-left_flex">
-                <form action="/usuario/signup" method="GET">
+                <form class="form" action="/usuario/signup" method="GET">
                     <legend class="legend">
                         <div>Nuevos clientes</div>
                     </legend>
