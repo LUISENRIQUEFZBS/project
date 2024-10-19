@@ -1,7 +1,11 @@
 const Producto = require('../models/producto');
 
 exports.getCrearProducto = (req, res, next) => {
-    res.render('admin/crear-producto', { titulo: 'Crear Producto', path: '/admin/crear-producto' });
+    res.render('admin/editar-producto', { 
+        titulo: 'Crear Producto', 
+        path: '/admin/crear-producto',
+        modoEdicion: false
+    });
 }
 
 exports.postCrearProducto = (req, res, next) => {
@@ -32,6 +36,8 @@ exports.getProductos = (req, res, next) => {
 
 // Controlador para obtener el producto a editar
 exports.getEditProductos = (req, res, next) => {
+    
+    const modoEdicion = req.query.editar;
     const productoId = req.params.id; // Obtiene el ID del producto de los parámetros de la URL
     Producto.findById(productoId, producto => {
         if (!producto) {
@@ -41,7 +47,8 @@ exports.getEditProductos = (req, res, next) => {
         res.render('admin/editar-producto', {
             titulo: 'Editar Producto',
             path: '/admin/editar-producto',
-            producto: producto // Pasar el producto a la vista
+            producto: producto, // Pasar el producto a la vista
+            modoEdicion: true
         });
     });
 };
@@ -53,12 +60,8 @@ exports.postEditProductos = (req, res, next) => {
         nombreproducto: req.body.nombreproducto,
         precio: req.body.precio,
         descripcion: req.body.descripcion,
+        urlImagen: req.body.urlImagen
     };
-
-    // Solo asigna la nueva URL de imagen si existe
-    if (req.body.urlImagen) {
-        updatedData.urlImagen = req.body.urlImagen;
-    }
 
     // Actualiza el producto
     Producto.update(productoId, updatedData, (result) => {
