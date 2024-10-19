@@ -76,7 +76,7 @@ exports.postSignup = async (req, res, next) => {
         return res.status(404).json({ error: "Se requiere que las contraseñas sean iguales" });
     }
     const usuarios= await Usuario.getAll();
-    const new_user = new Usuario(usuarios.length+1, nombres, apellidos, email,password);
+    const new_user = new Usuario(usuarios.length+1, nombres, apellidos, email, password, false);
     new_user.save()
   
     res.redirect('/')

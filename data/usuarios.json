@@ -1,1 +1,1 @@
-[{"id":"1","nombres":"Luis Enrique","apellidos":"Fernandez Bardales","email":"luis@gmail.com","password":"1234"},{"id":2,"nombres":"Pedro Antonio","apellidos":"Chavarria Mujica","email":"pedro14205x3@gmail.com","password":"EldenRing_1043"}]
+[{"id":"1","nombres":"Luis Enrique","apellidos":"Fernandez Bardales","email":"luis@gmail.com","password":"1234", "isAdmin":true}]

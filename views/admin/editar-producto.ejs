@@ -1,0 +1,18 @@
+<%- include('../includes/head.ejs') %>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <h1>Editar Producto</h1>
+        <form action="/admin/editar-producto/<%= producto.id %>" method="POST">
+            <input type="text" name="nombreproducto" value="<%= producto.nombreproducto %>" required>
+            <input type="text" name="urlImagen" value="<%= producto.urlImagen %>"> <!-- Campo para la nueva imagen -->
+            <input type="number" name="precio" value="<%= producto.precio %>" required>
+            <textarea name="descripcion" required><%= producto.descripcion %></textarea>
+            <button type="submit">Actualizar</button>
+        </form>        
+    </main>
+
+    <%- include('../includes/end.ejs') %>
+</body>
