@@ -56,11 +56,13 @@ exports.getEditProductos = (req, res, next) => {
 // Controlador para guardar los cambios del producto editado
 exports.postEditProductos = (req, res, next) => {
     const productoId = req.body.idProducto; // Obtiene el ID del producto de los parámetros de la URL
+    // console.log(req.body.categoria);
     const updatedData = {
         nombreproducto: req.body.nombreproducto,
         precio: req.body.precio,
         descripcion: req.body.descripcion,
-        urlImagen: req.body.urlImagen
+        urlImagen: req.body.urlImagen,
+        categoria: req.body.categoria
     };
 
     // Actualiza el producto
