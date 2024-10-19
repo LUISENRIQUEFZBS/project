@@ -15,5 +15,7 @@ router.get('/productos', usuarioController.isLoggedIn, adminController.getProduc
 router.get('/editar-producto/:id', usuarioController.isLoggedIn, adminController.getEditProductos);
 router.post('/editar-producto/:id', usuarioController.isLoggedIn, adminController.postEditProductos);
 
+router.post('/eliminar-producto', usuarioController.isLoggedIn, adminController.getEliminarProducto);
+
 
 module.exports = router;

@@ -70,3 +70,10 @@ exports.postEditProductos = (req, res, next) => {
         }
     });
 };
+
+exports.getEliminarProducto = (req, res) => {
+    const idProducto = req.body.idProducto;
+    console.log(idProducto)
+    Producto.deleteById(idProducto);
+    res.redirect('/admin/productos');
+  };
