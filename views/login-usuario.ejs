@@ -6,23 +6,23 @@
 <body>
     <%- include('includes/navigation.ejs') %>
     <main>
-        <div id="container">
-            <div class="box-left_flex">
-                <form class="form" action="/usuario/login" method="POST">
+        <div class="container">
+            <div>
+                <form class="datos" action="/usuario/login" method="POST">
                     <div id="page-title"><b>Inicio de sesión de cliente</b></div>
                     <legend class="legend">
                         <div>Clientes registrados</div>
                     </legend>
-                    <div class="box-left_flex">Si tienes una cuenta, inicia sesión con tu dirección de correo electrónico.</div>
-                    <div class="box-left_flex">
+                    <div>Si tienes una cuenta, inicia sesión con tu dirección de correo electrónico.</div>
+                    <div>
                         <label >Correo electrónico <span class="asterisco">*</span></label>
                         <input class="inputText" type="text" name="email" >
                     </div>
-                    <div class="box-left_flex">
+                    <div>
                         <label >Contraseña <span class="asterisco">*</span></label>
                         <input class="inputText" type="text" name="password" >
                     </div>
-                    <div class="box-left_flex">
+                    <div>
                         <button type="submit" class="btn-samsung">
                             <span>Iniciar sesion</span>
                         </button>
@@ -32,13 +32,13 @@
                     </div>
                 </form>
             </div>
-            <div class="box-left_flex">
-                <form class="form" action="/usuario/signup" method="GET">
+            <div>
+                <form class="datos" action="/usuario/signup" method="GET">
                     <legend class="legend">
                         <div>Nuevos clientes</div>
                     </legend>
-                    <div class="box-left_flex">Crear una cuenta tiene muchos beneficios: Pago más rápido, guardar más de una dirección, seguimiento de pedidos y mucho más.</div>
-                    <div class="box-left_flex">
+                    <div>Crear una cuenta tiene muchos beneficios: Pago más rápido, guardar más de una dirección, seguimiento de pedidos y mucho más.</div>
+                    <div>
                         <button type="submit" class="btn-samsung">
                             <span>Crear una cuenta</span>
                         </button>
