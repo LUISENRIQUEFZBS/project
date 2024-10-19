@@ -4,34 +4,44 @@
 </head>
 
 <body>
+    <%- include('includes/navigation.ejs') %>
+
     <main>
         <div class="box-center_flex">
             <form action="/usuario/signup" method="POST">
-                    <div class="box-center_flex">Crear nueva cuenta de cliente</div>
-                    <div >Información Personal</div>
-                    <div class="box-center_flex">
-                        <label>Nombres *</label>
-                        <input type="text" name="nombres" >
+                    <div id="page-title" class="box-center_flex"><b>Crear nueva cuenta de cliente</b></div>
+                    <legend class="legend">
+                        <div>Información Personal</div>
+                    </legend>
+                    <br>
+                    <div>
+                        <label>Nombres <span class="asterisco">*</span></label>
+                        <input type="text" name="nombres" class="inputText" autocomplete="off" required>
                     </div>
-                    <div class="box-center_flex">
-                        <label>Apellidos *</label>
-                        <input type="text" name="apellidos" >
+                    <div>
+                        <label>Apellidos <span class="asterisco">*</span></label>
+                        <input type="text" name="apellidos" class="inputText" autocomplete="off" required>
                     </div>
-                    <div class="box-center_flex">Información de inicio de sesión</div>
-                    <div class="box-center_flex">
-                        <label>Correo electrónico *</label>
-                        <input type="text" name="email" >
+                    <legend class="legend">
+                        <div>Información de inicio de sesión</div>
+                    </legend>
+                    <br>
+                    <div>
+                        <label>Correo electrónico <span class="asterisco">*</span></label>
+                        <input type="email" name="email" class="inputText" autocomplete="off" required>
                     </div>
-                    <div class="box-center_flex">
-                        <label>Contraseña *</label>
-                        <input type="text" name="password" >
+                    <div>
+                        <label>Contraseña <span class="asterisco">*</span></label>
+                        <input type="password" name="password" class="inputText" autocomplete="off" required>
                     </div>
-                    <div class="box-center_flex">
-                        <label>Confirmar Contraseña *</label>
-                        <input type="text" name="password2" >
+                    <div>
+                        <label>Confirmar Contraseña <span class="asterisco">*</span></label>
+                        <input type="password" name="password2" class="inputText" autocomplete="off" required>
                     </div>
-                    <div class="box-center_flex">
-                        <button class="btn" type="submit">CREAR UNA CUENTA</button>
+                    <div>
+                        <button type="submit" class="btn-samsung">
+                            <span>Crear una cuenta</span>
+                        </button>
                     </div>
             </form>
         </div>
