@@ -80,13 +80,14 @@ module.exports = class Producto {
 
     static deleteById(id) {
         getProductosFromFile(productos => {
-            const producto = productos.find(prod => prod.id === id);
-            const productosActualizados = productos.filter(prod => prod.id !== id);
-            fs.writeFile(p, JSON.stringify(productosActualizados), err => {
-                if (!err) {
-                    Carrito.eliminarProducto(id, producto.precio);
+            const productosActualizados = productos.filter(prod => prod.id !== id); // Filtrar el producto por id
+            fs.writeFile(p, JSON.stringify(productosActualizados), err => { // Guardar la nueva lista sin el producto
+                if (err) {
+                    console.error('No se pudo eliminar el producto.');
+                } else {
+                    console.log(`Producto con ID: ${id} eliminado correctamente.`);
                 }
             });
         });
-    }
+    }    
 }

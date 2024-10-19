@@ -43,7 +43,7 @@ exports.getEditProductos = (req, res, next) => {
         if (!producto) {
             return res.status(404).send('Producto no encontrado');
         }
-        console.log(producto);
+        // console.log(producto);
         res.render('admin/editar-producto', {
             titulo: 'Editar Producto',
             path: '/admin/editar-producto',
@@ -55,7 +55,7 @@ exports.getEditProductos = (req, res, next) => {
 
 // Controlador para guardar los cambios del producto editado
 exports.postEditProductos = (req, res, next) => {
-    const productoId = req.params.id; // Obtiene el ID del producto de los parámetros de la URL
+    const productoId = req.body.idProducto; // Obtiene el ID del producto de los parámetros de la URL
     const updatedData = {
         nombreproducto: req.body.nombreproducto,
         precio: req.body.precio,
@@ -76,7 +76,7 @@ exports.postEditProductos = (req, res, next) => {
 
 exports.getEliminarProducto = (req, res) => {
     const idProducto = req.body.idProducto;
-    console.log(idProducto)
+    // console.log(idProducto)
     Producto.deleteById(idProducto);
     res.redirect('/admin/productos');
-  };
+};
