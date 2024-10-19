@@ -10,7 +10,10 @@
             <input type="text" name="urlImagen" value="<% if (modoEdicion) { %><%= producto.urlImagen %><% } %>"> <!-- Campo para la nueva imagen -->
             <input type="number" name="precio" value="<% if (modoEdicion) { %><%= producto.precio %><% } %>" required>
             <textarea name="descripcion" required><% if (modoEdicion) { %><%= producto.descripcion %><% } %></textarea>
-            <button type="submit">Actualizar</button>
+            <% if (modoEdicion) { %>
+                <input type="hidden" value="<%= producto.id %>" name="idProducto">
+            <% } %>
+            <button type="submit"><% if (modoEdicion) { %>Actualizar Producto<% } else { %>Crear Producto<% } %></button>
         </form>        
     </main>
 
