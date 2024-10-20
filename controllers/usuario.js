@@ -8,7 +8,7 @@ const jwt= require('jsonwebtoken');
 const jwt_secret='grupo-4'
 
 exports.getLogin = async (req, res, next) => {
-    res.render('login-usuario', { titulo: 'Inicio de seción del cliente', path: '/' });
+    res.render('login-usuario', { titulo: 'Inicio de sesión del cliente', path: '/' });
 }
 exports.getSignup = async (req, res, next) => {
     res.render('signup-usuario', { titulo: 'Creación de nueva cuenta', path: '/' });
@@ -76,7 +76,7 @@ exports.postSignup = async (req, res, next) => {
         return res.status(404).json({ error: "Se requiere que las contraseñas sean iguales" });
     }
     const usuarios= await Usuario.getAll();
-    const new_user = new Usuario(usuarios.length+1, nombres, apellidos, email,password);
+    const new_user = new Usuario(usuarios.length+1, nombres, apellidos, email, password, false);
     new_user.save()
   
     res.redirect('/')

@@ -22,7 +22,7 @@ npm install
 ```
 Luego:
 ```
-nodemon app.js
+npm start
 ```
 
 

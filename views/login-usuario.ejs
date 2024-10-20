@@ -4,32 +4,47 @@
 </head>
 
 <body>
+    <%- include('includes/navigation.ejs') %>
     <main>
-        <div class="box-center_flex">
-            <form action="/usuario/login" method="POST">
-                    <div>Inicio de sesión de cliente</div>
-                    <div class="box-center_flex">
-                        <label >Correo electrónico *</label>
-                        <input type="text" name="email" >
+        <div class="container">
+            <div>
+                <form class="datos" action="/usuario/login" method="POST">
+                    <div id="page-title"><b>Inicio de sesión de cliente</b></div>
+                    <legend class="legend">
+                        <div>Clientes registrados</div>
+                    </legend>
+                    <div>Si tienes una cuenta, inicia sesión con tu dirección de correo electrónico.</div>
+                    <div>
+                        <label >Correo electrónico <span class="asterisco">*</span></label>
+                        <input class="inputText" type="text" name="email" >
                     </div>
-                    <div class="box-center_flex">
-                        <label >Contraseña *</label>
-                        <input type="text" name="password" >
+                    <div>
+                        <label >Contraseña <span class="asterisco">*</span></label>
+                        <input class="inputText" type="password" name="password" >
                     </div>
-                    <div class="box-center_flex">
-                        <button class="btn" type="submit">INICIAR SESIÓN</button>
+                    <div>
+                        <button type="submit" class="btn-samsung">
+                            <span>Iniciar sesion</span>
+                        </button>
                     </div>
-            </form>
+                    <div>
+                        <span class="asterisco">*Campos obligatorios</span>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <form class="datos" action="/usuario/signup" method="GET">
+                    <legend class="legend">
+                        <div>Nuevos clientes</div>
+                    </legend>
+                    <div>Crear una cuenta tiene muchos beneficios: Pago más rápido, guardar más de una dirección, seguimiento de pedidos y mucho más.</div>
+                    <div>
+                        <button type="submit" class="btn-samsung">
+                            <span>Crear una cuenta</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="box-center_flex">
-            <form action="/usuario/signup" method="GET">
-                <div class="box-center_flex">Nuevos clientes</div>
-                <div class="box-center_flex">Crear una cuenta tiene muchos beneficios: Pago más rápido, guardar más de una dirección, seguimiento de pedidos y mucho más.</div>
-                <div class="box-center_flex">
-                    <button class="btn" type="submit">CREAR UNA CUENTA</button>
-                </div>
-            </form>
-        </div>
-
     </main>
 <%- include('includes/end.ejs') %>
