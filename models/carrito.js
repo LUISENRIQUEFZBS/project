@@ -40,7 +40,7 @@ module.exports = class Carrito{
                 productoActualizado = {id: id, cantidad: 1, nombreproducto: nombreproducto, precio: precio};
                 carrito.productos = [...carrito.productos, productoActualizado];
             }
-            carrito.precioTotal = carrito.precioTotal != null ? carrito.precioTotal + +precio : precio;
+            carrito.precioTotal = carrito.precioTotal != null ? +carrito.precioTotal + +precio : precio;
             fs.writeFile(p, JSON.stringify(carrito), err => {
                 console.log(err);
             })
