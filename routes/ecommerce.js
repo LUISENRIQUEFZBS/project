@@ -14,5 +14,7 @@ router.get('/tv-audio', usuarioController.isLoggedIn, productosController.getPro
 router.get('/electrodomesticos', usuarioController.isLoggedIn, productosController.getProductosElectrodomesticos);
 router.get('/tecnologia-ai', usuarioController.isLoggedIn, productosController.getProductosTecnologiaai);
 router.get('/ventas-especiales', usuarioController.isLoggedIn, productosController.getProductosVentasespeciales);
+router.get('/carrito', usuarioController.isLoggedIn, productosController.getCarrito);
+router.post('/carrito', usuarioController.isLoggedIn, productosController.postCarrito)
 
 module.exports = router;

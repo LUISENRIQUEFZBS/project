@@ -1,4 +1,6 @@
 const Producto = require('../models/producto');
+const Carrito = require('../models/carrito');
+const path = require('../utils/path');
 
 exports.getProductosBienvenido = (req, res) => {
     Producto.fetchAll(productos => {
@@ -64,3 +66,18 @@ exports.getProductosVentasespeciales = (req, res) => {
         });
     });
 };
+
+exports.getCarrito = (req, res, next) => {
+    res.render('tienda/carrito', {
+        titulo: 'Mi carrito',
+        path: '/carrito'
+    });
+};
+
+exports.postCarrito = (req, res) => {
+    const idProducto = req.body.idProducto;
+    Producto.findById(idProducto, producto => {
+        Carrito.agregarProducto(idProducto, producto.precio);
+        res.redirect('/carrito');
+    });
+}
