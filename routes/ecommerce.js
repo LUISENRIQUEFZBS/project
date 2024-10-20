@@ -17,4 +17,6 @@ router.get('/ventas-especiales', usuarioController.isLoggedIn, productosControll
 router.get('/carrito', usuarioController.isLoggedIn, productosController.getCarrito);
 router.post('/carrito', usuarioController.isLoggedIn, productosController.postCarrito)
 
+router.get('/productos/:idProducto', productosController.getProducto);
+
 module.exports = router;

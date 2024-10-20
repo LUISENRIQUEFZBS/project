@@ -97,3 +97,13 @@ exports.postCarrito = (req, res) => {
         res.redirect('/carrito');
     });
 }
+exports.getProducto = (req, res) => {
+    const idProducto = req.params.idProducto;
+    Producto.findById(idProducto, (producto) => {
+        res.render('tienda/detalle-producto', {
+            producto: producto,
+            titulo: producto.nombre,
+            path: "/"
+        })
+    })
+}
