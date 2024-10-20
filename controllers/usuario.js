@@ -8,7 +8,7 @@ const jwt= require('jsonwebtoken');
 const jwt_secret='grupo-4'
 
 exports.getLogin = async (req, res, next) => {
-    res.render('login-usuario', { titulo: 'Inicio de seción del cliente', path: '/' });
+    res.render('login-usuario', { titulo: 'Inicio de sesión del cliente', path: '/' });
 }
 exports.getSignup = async (req, res, next) => {
     res.render('signup-usuario', { titulo: 'Creación de nueva cuenta', path: '/' });
