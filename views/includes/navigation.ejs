@@ -1,13 +1,13 @@
 <header class="main-header">
     <nav class="main-header__nav">
         <ul class="main-header__item-list ">
-            <li class=".main-header__item__logo box-center_flex">
+            <li class="main-header__item__logo box-center_flex">
                 <a href="/">
-                    <div style="height: 100%;width: 120px; cursor:pointer;">
-                        <img style='height: 100%; width: 100%; object-fit: contain' src="https://static.vecteezy.com/system/resources/thumbnails/014/018/566/small_2x/samsung-logo-on-transparent-background-free-vector.jpg"
+                    <div class="logo-container">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/014/018/566/small_2x/samsung-logo-on-transparent-background-free-vector.jpg" alt="Samsung Logo">
                     </div>
                 </a>
-            </li>
+            </li>            
             <li class="main-header__item box-center_flex">
                 <a  href="/mobile">
                     mobile
@@ -33,6 +33,12 @@
                     Ventas especiales
                 </a>
             </li>
+
+            <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/admin/productos' ? 'active' : '' %>" href="/admin/productos">
+                    Admin Productos
+                </a>
+            </li>
    
             <% if (typeof user == 'object' && user) { %>
                 <form class="box-center_flex" action="/usuario/logout" method="POST">
@@ -50,7 +56,7 @@
                 </li>
             <% } %>
             <li class="main-header__item box-center_flex">
-                <a>
+                <a href="/carrito">
                 <i class="fa-solid fa-cart-shopping"></i>
                 </a>
             </li>

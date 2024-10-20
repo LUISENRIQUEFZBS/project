@@ -53,8 +53,29 @@ main {
   background-color: black;
   color:white;
 }
-.main-header__item__logo{
 
+.main-header__item__logo {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  padding: 0 1rem; 
+}
+
+.logo-container {
+  height: 100%;
+  width: 120px; 
+  cursor: pointer; 
+}
+
+.main-header__item__logo img {
+  height: 100%; 
+  width: 100%; 
+  object-fit: contain; 
+  transition: transform 0.3s ease; 
+}
+
+.main-header__item__logo:hover img {
+  transform: scale(1.1); /* Aumenta el logo al pasar el mouse */
 }
 
 .grid {
@@ -62,6 +83,8 @@ main {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: stretch;
+  margin-top: 1rem; /* Espaciado superior */
+  gap: 1rem; /* Espacio entre los elementos, ajusta el valor según necesites */
 }
 
 .card {
