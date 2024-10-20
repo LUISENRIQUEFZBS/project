@@ -4,6 +4,7 @@ exports.getCrearProducto = (req, res, next) => {
     res.render('admin/editar-producto', { 
         titulo: 'Crear Producto', 
         path: '/admin/crear-producto',
+        tienecaracteristicas: false,
         modoEdicion: false
     });
 }
@@ -13,7 +14,7 @@ exports.postCrearProducto = (req, res, next) => {
     const urlImagen = req.body.urlImagen;
     const precio = req.body.precio;
     const descripcion = req.body.descripcion;
-    const caracteristicas = req.body.caracteristicas;
+    const caracteristicas = req.body.caracteristicas.split(', ');
     const categoria = req.body.categoria;  // Capturando la categoría
 
     const producto = new Producto(null, nombreproducto, urlImagen, precio, descripcion, caracteristicas, categoria);
@@ -49,6 +50,7 @@ exports.getEditProductos = (req, res, next) => {
             titulo: 'Editar Producto',
             path: '/admin/editar-producto',
             producto: producto, // Pasar el producto a la vista
+            tienecaracteristicas: true,
             modoEdicion: true
         });
     });
@@ -64,7 +66,7 @@ exports.postEditProductos = (req, res, next) => {
         descripcion: req.body.descripcion,
         urlImagen: req.body.urlImagen,
         categoria: req.body.categoria,
-        caracteristicas: req.body.caracteristicas
+        caracteristicas: req.body.caracteristicas.split(', ')
     };
 
     // Actualiza el producto

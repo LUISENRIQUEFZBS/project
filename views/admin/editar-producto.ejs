@@ -36,7 +36,7 @@
 
                 <div class="input-form">
                     <label for="caracteristicas">Características principales</label>
-                    <textarea id="caracteristicas" name="caracteristicas" required><% if (modoEdicion) { %><%= producto.caracteristicas %><% } %></textarea>
+                    <textarea id="caracteristicas" name="caracteristicas" required><% if (modoEdicion) { %><% if (tienecaracteristicas) { %> <%= producto.caracteristicas.join(", ") %><% } %><% } %></textarea>
                 </div>
     
                 <!-- Seleccionar categoría -->
