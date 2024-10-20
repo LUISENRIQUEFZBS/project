@@ -13,9 +13,10 @@ exports.postCrearProducto = (req, res, next) => {
     const urlImagen = req.body.urlImagen;
     const precio = req.body.precio;
     const descripcion = req.body.descripcion;
+    const caracteristicas = req.body.caracteristicas;
     const categoria = req.body.categoria;  // Capturando la categoría
 
-    const producto = new Producto(null, nombreproducto, urlImagen, precio, descripcion, categoria);
+    const producto = new Producto(null, nombreproducto, urlImagen, precio, descripcion, caracteristicas, categoria);
 
     producto.save();
     res.redirect('/admin/productos');
@@ -62,7 +63,8 @@ exports.postEditProductos = (req, res, next) => {
         precio: req.body.precio,
         descripcion: req.body.descripcion,
         urlImagen: req.body.urlImagen,
-        categoria: req.body.categoria
+        categoria: req.body.categoria,
+        caracteristicas: req.body.caracteristicas
     };
 
     // Actualiza el producto

@@ -29,6 +29,11 @@
     color: #626262;
 }
 
+.product__characteristics {
+    text-align: center;
+    color: #626262;
+}
+
 .product__category {
     text-align: center;
 }
