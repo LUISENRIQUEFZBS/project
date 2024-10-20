@@ -17,12 +17,13 @@ const getProductosFromFile = (cb) => {
 }
 
 module.exports = class Producto {
-    constructor(id, nombreproducto, urlImagen, precio, descripcion, categoria) {
+    constructor(id, nombreproducto, urlImagen, precio, descripcion, caracteristicas, categoria) {
         this.id = id;
         this.nombreproducto = nombreproducto;
         this.urlImagen = urlImagen;
         this.precio = precio;
         this.descripcion = descripcion;
+        this.caracteristicas = caracteristicas;
         this.categoria = categoria;
     }
 
@@ -43,6 +44,13 @@ module.exports = class Producto {
 
     static fetchAll(cb) {
         return getProductosFromFile(cb);
+    }
+
+    static findById(id, cb) {
+        getProductosFromFile(productos => {
+            const producto = productos.find(prod => prod.id == id);
+            cb(producto);
+        })
     }
 
     static findById(id, cb) {
