@@ -32,6 +32,12 @@
                      <textarea id="descripcion" name="descripcion" required><% if (modoEdicion) { %><%= producto.descripcion %><% } %></textarea>
                  </div>
     
+                <!-- Características del producto -->
+                 <div class="input-form">
+                     <label for="caracteristicas">Características principales</label>
+                     <textarea id="caracteristicas" name="caracteristicas" required><% if (modoEdicion) { %><%= producto.caracteristicas %><% } %></textarea>
+                 </div>
+    
                 <!-- Seleccionar categoría -->
                  <div class="input-form">
                      <label for="categoria">Categoría</label>
