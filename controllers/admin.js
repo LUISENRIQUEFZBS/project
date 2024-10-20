@@ -2,7 +2,7 @@ const Producto = require('../models/producto');
 
 exports.getCrearProducto = (req, res, next) => {
     res.render('admin/editar-producto', { 
-        titulo: 'Crear Producto', 
+        titulo: 'Crear producto', 
         path: '/admin/crear-producto',
         modoEdicion: false
     });
@@ -28,7 +28,7 @@ exports.getProductos = (req, res, next) => {
         productos = productosObtenidos
         res.render('admin/productos', {
             prods: productos, 
-            titulo: 'Administracion de Productos', 
+            titulo: 'Administración de productos', 
             path: '/admin/productos'
         });
     });
@@ -45,7 +45,7 @@ exports.getEditProductos = (req, res, next) => {
         }
         // console.log(producto);
         res.render('admin/editar-producto', {
-            titulo: 'Editar Producto',
+            titulo: 'Editar producto',
             path: '/admin/editar-producto',
             producto: producto, // Pasar el producto a la vista
             modoEdicion: true
