@@ -15,4 +15,6 @@ router.get('/electrodomesticos', usuarioController.isLoggedIn, productosControll
 router.get('/tecnologia-ai', usuarioController.isLoggedIn, productosController.getProductosTecnologiaai);
 router.get('/ventas-especiales', usuarioController.isLoggedIn, productosController.getProductosVentasespeciales);
 
+router.get('/productos/:idProducto', productosController.getProducto);
+
 module.exports = router;

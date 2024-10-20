@@ -1,4 +1,5 @@
 const Producto = require('../models/producto');
+const path = require('../utils/path');
 
 exports.getProductosBienvenido = (req, res) => {
     Producto.fetchAll(productos => {
@@ -64,3 +65,15 @@ exports.getProductosVentasespeciales = (req, res) => {
         });
     });
 };
+
+exports.getProducto = (req, res) => {
+    const idProducto = req.params.idProducto;
+    Producto.findById(idProducto, (producto) => {
+        res.render('tienda/detalle-producto', {
+            producto: producto,
+            titulo: producto.nombre,
+            path: "/"
+        })
+
+    })
+}
