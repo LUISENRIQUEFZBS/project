@@ -13,11 +13,13 @@
             <div class="product-info">            
                 <h2 class="price">$<%= producto.precio %></h2>
                 <p><%= producto.descripcion %></p>
-                <ul>
-                    <li>Pantalla principal (interior): Plegable Dynamic AMOLED de 6.7 pulgadas, resolución FHD+ (2640 x 1080 píxeles).</li>
-                    <li>Pantalla exterior (secundaria): Pantalla AMOLED de 3.4 pulgadas o más grande para notificaciones, controles rápidos y widgets.</li>
-                    <li>Frecuencia de actualización: 120 Hz para una experiencia más fluida.</li>
-                </ul>
+                    <% if (producto.caracteristicas && producto.caracteristicas.length > 0) { %>
+                        <ul>
+                        <% for (let c of producto.caracteristicas) { %>
+                            <li><%= c %></li>
+                        <% } %>
+                        </ul>
+                    <% } %>
                 <div class="quantity-selector">
                     <label for="quantity">Cantidad:</label>
                     <input type="number" id="quantity" name="quantity" value="1" min="1" />
