@@ -3,6 +3,7 @@ const path = require('path');
 
 const raizDir = require('../utils/path.js');
 const p = path.join(raizDir, 'data', 'productos.json');
+const c = path.join(raizDir, 'data', 'info.json');
 
 const getProductosFromFile = (cb) => {
     fs.readFile(p, (err, fileContent) => {
@@ -16,12 +17,13 @@ const getProductosFromFile = (cb) => {
 }
 
 module.exports = class Producto {
-    constructor(id, nombreproducto, urlImagen, precio, descripcion, categoria) {
+    constructor(id, nombreproducto, urlImagen, precio, descripcion, caracteristicas, categoria) {
         this.id = id;
         this.nombreproducto = nombreproducto;
         this.urlImagen = urlImagen;
         this.precio = precio;
         this.descripcion = descripcion;
+        this.caracteristicas = caracteristicas;
         this.categoria = categoria;
     }
 
@@ -42,6 +44,13 @@ module.exports = class Producto {
 
     static fetchAll(cb) {
         return getProductosFromFile(cb);
+    }
+
+    static findById(id, cb) {
+        getProductosFromFile(productos => {
+            const producto = productos.find(prod => prod.id == id);
+            cb(producto);
+        })
     }
 
     static findById(id, cb) {
@@ -76,5 +85,17 @@ module.exports = class Producto {
             }
         });
     }
-    
+
+    static deleteById(id) {
+        getProductosFromFile(productos => {
+            const productosActualizados = productos.filter(prod => prod.id !== id); // Filtrar el producto por id
+            fs.writeFile(p, JSON.stringify(productosActualizados), err => { // Guardar la nueva lista sin el producto
+                if (err) {
+                    console.error('No se pudo eliminar el producto.');
+                } else {
+                    console.log(`Producto con ID: ${id} eliminado correctamente.`);
+                }
+            });
+        });
+    }    
 }
