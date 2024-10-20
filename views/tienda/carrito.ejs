@@ -3,6 +3,23 @@
 
 <body>
     <%- include('../includes/navigation.ejs') %>
+    <main>
+        <% if (productos.length > 0) { %>
+            <ul>
+                <% productos.forEach(p => { %>
+                    <li>
+                        <p><%= p.nombreproducto %> (<%= p.cantidad %>)</p>
+                        <form action="/eliminar-producto-carrito" method="POST">
+                            <input type="hidden" value="<%= p.dataProducto.id %>" name="idProducto">
+                            <button class="btn" type="submit">Elimar</button>
+                        </form>
+                    </li>
+                <% }) %>    
+            </ul>
+        <% } else { %>
+            <h1>No hay productos en el carrito!</h1>
+        <% } %>        
+    </main>
     
 
 <%- include('../includes/end.ejs') %>

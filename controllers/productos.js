@@ -68,16 +68,32 @@ exports.getProductosVentasespeciales = (req, res) => {
 };
 
 exports.getCarrito = (req, res, next) => {
-    res.render('tienda/carrito', {
-        titulo: 'Mi carrito',
-        path: '/carrito'
+    Carrito.getCarrito(carrito => {
+        Producto.fetchAll(productos => {
+            const productosCarrito = [];
+            if (carrito && carrito.productos) {
+             for (producto of productos) {
+                 const productoEnCarrito = carrito.productos.find(
+                     prod => prod.id === producto.id
+                 );
+                 if (productoEnCarrito) {
+                     productosCarrito.push({ dataProducto: producto, cantidad: productoEnCarrito.cantidad, nombreproducto: productoEnCarrito.nombreproducto});
+                 }
+             }
+            }
+            res.render('tienda/carrito', {
+                titulo: 'Mi carrito',
+                path: '/carrito',
+                productos: productosCarrito
+            });
+        });
     });
 };
 
 exports.postCarrito = (req, res) => {
     const idProducto = req.body.idProducto;
     Producto.findById(idProducto, producto => {
-        Carrito.agregarProducto(idProducto, producto.precio);
+        Carrito.agregarProducto(idProducto, producto.precio, producto.nombreproducto);
         res.redirect('/carrito');
     });
 }
