@@ -10,7 +10,7 @@ module.exports = class Carrito{
     static agregarProducto(id, precio, nombreproducto){
 
         fs.readFile(p, (err, fileContent) => {
-            let carrito = {productos: [], precioTotal: 0, nombreproducto: 'a'};
+            let carrito = {productos: [], precioTotal: 0};
             if (!err && fileContent.length > 0) {
                 try {
                     carrito = JSON.parse(fileContent);
@@ -19,7 +19,7 @@ module.exports = class Carrito{
                 }
             }
 
-            // Asegúrate de que `carrito.productos` esté definido
+            // Asegurarse de que `carrito.productos` esté definido
             if (!carrito.productos) {
                 carrito.productos = [];
             }

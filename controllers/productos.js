@@ -97,6 +97,15 @@ exports.postCarrito = (req, res) => {
         res.redirect('/carrito');
     });
 }
+
+exports.postEliminarProductoCarrito = (req, res) => {
+    const idProducto = req.body.idProducto;
+    Producto.findById(idProducto, producto =>{
+        Carrito.eliminarProducto(idProducto, producto.precio);
+        res.redirect('/carrito');
+    });
+};
+
 exports.getProducto = (req, res) => {
     const idProducto = req.params.idProducto;
     Producto.findById(idProducto, (producto) => {

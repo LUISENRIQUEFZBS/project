@@ -16,6 +16,7 @@ router.get('/tecnologia-ai', usuarioController.isLoggedIn, productosController.g
 router.get('/ventas-especiales', usuarioController.isLoggedIn, productosController.getProductosVentasespeciales);
 router.get('/carrito', usuarioController.isLoggedIn, productosController.getCarrito);
 router.post('/carrito', usuarioController.isLoggedIn, productosController.postCarrito)
+router.post('/eliminar-producto-carrito', usuarioController.isLoggedIn, productosController.postEliminarProductoCarrito);
 
 router.get('/productos/:idProducto', productosController.getProducto);
 
