@@ -50,7 +50,7 @@ exports.getEditProductos = (req, res, next) => {
             titulo: 'Editar Producto',
             path: '/admin/editar-producto',
             producto: producto, // Pasar el producto a la vista
-            tienecaracteristicas: true,
+            tienecaracteristicas: (producto.caracteristicas != null) ? true : false,
             modoEdicion: true
         });
     });
