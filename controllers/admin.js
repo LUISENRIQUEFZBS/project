@@ -2,7 +2,7 @@ const Producto = require('../models/producto');
 
 exports.getCrearProducto = (req, res, next) => {
     res.render('admin/editar-producto', { 
-        titulo: 'Crear producto', 
+        titulo: 'Crear Producto', 
         path: '/admin/crear-producto',
         modoEdicion: false
     });
@@ -13,10 +13,9 @@ exports.postCrearProducto = (req, res, next) => {
     const urlImagen = req.body.urlImagen;
     const precio = req.body.precio;
     const descripcion = req.body.descripcion;
-    const caracteristicas = req.body.caracteristicas.split(', ');
     const categoria = req.body.categoria;  // Capturando la categoría
 
-    const producto = new Producto(null, nombreproducto, urlImagen, precio, descripcion, caracteristicas, categoria);
+    const producto = new Producto(null, nombreproducto, urlImagen, precio, descripcion, categoria);
 
     producto.save();
     res.redirect('/admin/productos');
@@ -29,7 +28,7 @@ exports.getProductos = (req, res, next) => {
         productos = productosObtenidos
         res.render('admin/productos', {
             prods: productos, 
-            titulo: 'Administración de productos', 
+            titulo: 'Administracion de Productos', 
             path: '/admin/productos'
         });
     });
@@ -46,7 +45,7 @@ exports.getEditProductos = (req, res, next) => {
         }
         // console.log(producto);
         res.render('admin/editar-producto', {
-            titulo: 'Editar producto',
+            titulo: 'Editar Producto',
             path: '/admin/editar-producto',
             producto: producto, // Pasar el producto a la vista
             modoEdicion: true
@@ -62,7 +61,6 @@ exports.postEditProductos = (req, res, next) => {
         nombreproducto: req.body.nombreproducto,
         precio: req.body.precio,
         descripcion: req.body.descripcion,
-        caracteristicas: req.body.caracteristicas.split(', '),
         urlImagen: req.body.urlImagen,
         categoria: req.body.categoria
     };
