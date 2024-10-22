@@ -53,6 +53,34 @@ exports.getCarrito = (req, res, next) => {
     });
 };
 
+exports.getCarritoAPI = (req, res, next) => {
+    Carrito.getCarrito(carrito => {
+        Producto.fetchAll(productos => {
+            const productosCarrito = [];
+            if (carrito && carrito.productos) {
+                for (producto of productos) {
+                    const productoEnCarrito = carrito.productos.find(
+                        prod => prod.id === producto.id
+                    );
+                    if (productoEnCarrito) {
+                        productosCarrito.push({
+                            id: producto.id,
+                            nombreproducto: productoEnCarrito.nombreproducto,
+                            cantidad: productoEnCarrito.cantidad,
+                            precio: productoEnCarrito.precio
+                        });
+                    }
+                }
+            }
+            res.json({
+                productos: productosCarrito,
+                precioTotal: carrito ? carrito.precioTotal : 0
+            });
+        });
+    });
+};
+
+
 exports.postCarrito = (req, res) => {
     const idProducto = req.body.idProducto;
     Producto.findById(idProducto, producto => {
