@@ -70,27 +70,6 @@
     </main>
 
     <%- include('../includes/end.ejs') %>
-
-    <script>
-        // Mostrar vista previa de la imagen cuando se ingresa la URL
-        const urlImagenInput = document.getElementById('urlImagen');
-        const previewImage = document.getElementById('previewImage');
-
-        urlImagenInput.addEventListener('input', function() {
-            const imageUrl = urlImagenInput.value;
-            if (imageUrl) {
-                previewImage.src = imageUrl;
-            } else {
-                previewImage.src = 'https://via.placeholder.com/150'; // Imagen predeterminada
-            }
-        });
-
-        // Desactivar el boton crear para evitar crear dos productos al darle dos clics
-        const form = document.querySelector('.form-control');
-        const submitButton = form.querySelector('.button-primary');
-
-        form.addEventListener('submit', (event) => {
-            submitButton.disabled = true; // Desactivar el botón
-        });
-    </script>
+    
+    <script src="/js/productos-admin.js"></script>
 </body>
