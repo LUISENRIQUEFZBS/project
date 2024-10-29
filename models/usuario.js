@@ -33,31 +33,34 @@ const usuarioSchema = new Schema({
     }
 });
 
-usuarioSchema.methods.agregarAlCarrito = function(producto) {
-    if (!this.carrito) {
-      this.carrito = {items: []};
-    }
-    const indiceEnCarrito = this.carrito.items.findIndex(cp => {
+usuarioSchema.methods.agregarAlCarrito = function(producto, cantidad) {
+  if (!this.carrito) {
+      this.carrito = { items: [] };
+  }
+
+  const indiceEnCarrito = this.carrito.items.findIndex(cp => {
       return cp.idProducto.toString() === producto._id.toString();
-    });
-    let nuevaCantidad = 1;
-    const itemsActualizados = [...this.carrito.items];
-  
-    if (indiceEnCarrito >= 0) {
-      nuevaCantidad = this.carrito.items[indiceEnCarrito].cantidad + 1;
-      itemsActualizados[indiceEnCarrito].cantidad = nuevaCantidad;
-    } else {
+  });
+
+  const itemsActualizados = [...this.carrito.items];
+
+  if (indiceEnCarrito >= 0) {
+      // Si el producto ya está en el carrito, actualiza la cantidad
+      itemsActualizados[indiceEnCarrito].cantidad += cantidad; // Suma la cantidad recibida
+  } else {
+      // Si no está en el carrito, añade el producto con la cantidad recibida
       itemsActualizados.push({
-        idProducto: producto._id,
-        cantidad: nuevaCantidad
+          idProducto: producto._id,
+          cantidad: cantidad
       });
-    }
-    const carritoActualizado = {
+  }
+
+  const carritoActualizado = {
       items: itemsActualizados
-    };
-  
-    this.carrito = carritoActualizado;
-    return this.save();
+  };
+
+  this.carrito = carritoActualizado;
+  return this.save(); // Guarda el carrito actualizado
 };
   
 usuarioSchema.methods.deleteItemDelCarrito = function(idProducto) {

@@ -39,6 +39,12 @@
                     Admin Productos
                 </a>
             </li>
+
+            <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/pedidos' ? 'active' : '' %>" href="/pedidos">
+                    Pedidos
+                </a>
+            </li>
    
             <% if (typeof user == 'object' && user) { %>
                 <form class="box-center_flex" action="/usuario/logout" method="POST">
