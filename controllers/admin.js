@@ -14,75 +14,100 @@ exports.postCrearProducto = (req, res, next) => {
     const urlImagen = req.body.urlImagen;
     const precio = req.body.precio;
     const descripcion = req.body.descripcion;
-    const caracteristicas = req.body.caracteristicas.split(', ');
-    const categoria = req.body.categoria;  // Capturando la categoría
+    const caracteristicas = req.body.caracteristicas.split(',').map(c => c.trim());
 
-    const producto = new Producto(null, nombreproducto, urlImagen, precio, descripcion, caracteristicas, categoria);
+    const categoriaId = req.categorias.find(catId => catId.categoriaName === req.body.categoria);
 
-    producto.save();
-    res.redirect('/admin/productos');
+    const producto = new Producto({
+        nombreproducto: nombreproducto,
+        precio: precio,
+        descripcion: descripcion,
+        urlImagen: urlImagen,
+        caracteristicas: caracteristicas,
+        categoria: categoriaId._id,
+        idUsuario: req.usuario._id
+    });
+    producto.save()
+        .then(result => {
+            console.log(result);
+            res.redirect('/admin/productos');
+        })
+        .catch(err => console.log(err));
 }
 
 exports.getProductos = (req, res, next) => {
-    let productos;
-    Producto.fetchAll(productosObtenidos => {
-        // console.log('Productos obtenidos:', productosObtenidos);
-        productos = productosObtenidos
-        res.render('admin/productos', {
-            prods: productos, 
-            titulo: 'Administracion de Productos', 
-            path: '/admin/productos'
-        });
-    });
-}
+    Producto.find()
+      .populate('categoria') // Esto incluye la información completa de la categoría en cada producto
+      .then(productos => {
+          res.render('admin/productos', {
+              prods: productos,
+              titulo: "Administracion de Productos",
+              path: "/admin/productos"
+          });
+      })
+      .catch(err => console.log(err));
+};
 
-// Controlador para obtener el producto a editar
 exports.getEditProductos = (req, res, next) => {
-    
-    const modoEdicion = req.query.editar;
-    const productoId = req.params.id; // Obtiene el ID del producto de los parámetros de la URL
-    Producto.findById(productoId, producto => {
+    const idProducto = req.params.id;
+    console.log('Producto', idProducto);
+    Producto.findById(idProducto)
+    .populate('categoria') // Incluye los detalles de la categoría
+    .then(producto => {
         if (!producto) {
-            return res.status(404).send('Producto no encontrado');
+            return res.redirect('/admin/productos');
         }
-        // console.log(producto);
         res.render('admin/editar-producto', {
             titulo: 'Editar Producto',
             path: '/admin/editar-producto',
             producto: producto, // Pasar el producto a la vista
-            tienecaracteristicas: (producto.caracteristicas != null) ? true : false,
+            tienecaracteristicas: Array.isArray(producto.caracteristicas) && producto.caracteristicas.length > 0,
             modoEdicion: true
         });
-    });
+    })
+    .catch(err => console.log(err));
 };
 
-// Controlador para guardar los cambios del producto editado
 exports.postEditProductos = (req, res, next) => {
-    const productoId = req.body.idProducto; // Obtiene el ID del producto de los parámetros de la URL
-    // console.log(req.body.categoria);
-    const updatedData = {
-        nombreproducto: req.body.nombreproducto,
-        precio: req.body.precio,
-        descripcion: req.body.descripcion,
-        urlImagen: req.body.urlImagen,
-        categoria: req.body.categoria,
-        caracteristicas: req.body.caracteristicas.split(', ')
-    };
+    const productoId = req.body.idProducto;
+    console.log('Producto', productoId);
 
-    // Actualiza el producto
-    Producto.update(productoId, updatedData, (result) => {
-        if (result) {
-            res.redirect('/admin/productos'); // Redirige si la actualización fue exitosa
-        } else {
-            console.error('Producto no encontrado en la actualización.'); // Mensaje de depuración
-            res.status(404).send('Producto no encontrado');
-        }
-    });
+    const nombreproducto = req.body.nombreproducto;
+    const precio = req.body.precio;
+    const urlImagen = req.body.urlImagen;
+    const descripcion = req.body.descripcion;
+    const caracteristicas = req.body.caracteristicas.split(',').map(c => c.trim()); // Convierte en array
+    const categoriaId = req.categorias.find(catId => catId.categoriaName === req.body.categoria);
+
+    Producto.findById(productoId)
+        .then(producto => {
+            if (!producto) {
+                return res.redirect('/admin/productos');
+            }
+            producto.nombreproducto = nombreproducto;
+            producto.precio = precio;
+            producto.descripcion = descripcion;
+            producto.urlImagen = urlImagen;
+            producto.caracteristicas = caracteristicas;
+            producto.categoria = categoriaId._id;
+            producto.idUsuario = req.usuario._id
+            // console.log("Nuevo",producto);
+            return producto.save();
+        })
+        .then(result => {
+            // console.log('Producto actualizado satisfactoriamente');
+            res.redirect('/admin/productos');
+        })
+        .catch(err => console.log(err));
 };
 
-exports.getEliminarProducto = (req, res) => {
+exports.postEliminarProducto = (req, res, next) => {
     const idProducto = req.body.idProducto;
-    // console.log(idProducto)
-    Producto.deleteById(idProducto);
-    res.redirect('/admin/productos');
+    console.log('Producto', idProducto);
+    Producto.findByIdAndDelete(idProducto)
+        .then(result => {
+            console.log('Producto eliminado satisfactoriamente');
+            res.redirect('/admin/productos');
+        })
+        .catch(err => console.log(err));
 };

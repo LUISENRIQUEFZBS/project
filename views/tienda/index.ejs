@@ -21,10 +21,10 @@
                             <h2 class="product__price"><strong>Precio: </strong>S/<%= producto.precio %></h2>
                             <p class="product__description"><strong>Descripción:</strong> <%= producto.descripcion %></p>
                             <p class="product__characteristics"><strong>Características:</strong> <%= producto.caracteristicas %></p>
-                            <p class="product__category"><strong>Categoría:</strong> <%= producto.categoria %></p>
+                            <p class="product__category"><strong>Categoría:</strong> <%= producto.categoria.categoriaName %></p>
                         </div>
                         <div class="card__actions">
-                            <a href="/productos/<%= producto.id %>" class="btn"> Detalles</a>
+                            <a href="/productos/<%= producto._id %>" class="btn"> Detalles</a>
                             <%- include('../includes/agregar-al-carrito.ejs', {producto: producto}) %>
                         </div>
                     </article>

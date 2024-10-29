@@ -1,48 +1,76 @@
+const mongoose = require('mongoose');
 
-const fs = require('fs');
-const path = require('path');
+const Schema = mongoose.Schema;
 
-const raizDir = require('../utils/path');
-
-const u = path.join(
-    raizDir,
-    'data',
-    'usuarios.json'
-  );
-
-const getUsuariosFromFile =   cb => {
-    fs.readFile(u, (err, fileContent) => {
-        if (err) {
-            cb([]);
-        } else {
-            cb(JSON.parse(fileContent));
+const usuarioSchema = new Schema({
+    nombres: {
+        type: String,
+        required: true
+    },
+    apellidos: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true
+    },  
+    carrito: {
+        items: [
+        {
+            idProducto: { type: Schema.Types.ObjectId, ref: 'Producto', required: true },
+            cantidad: { type: Number, required: true }
         }
+        ]
+    }
+});
+
+usuarioSchema.methods.agregarAlCarrito = function(producto) {
+    if (!this.carrito) {
+      this.carrito = {items: []};
+    }
+    const indiceEnCarrito = this.carrito.items.findIndex(cp => {
+      return cp.idProducto.toString() === producto._id.toString();
     });
+    let nuevaCantidad = 1;
+    const itemsActualizados = [...this.carrito.items];
+  
+    if (indiceEnCarrito >= 0) {
+      nuevaCantidad = this.carrito.items[indiceEnCarrito].cantidad + 1;
+      itemsActualizados[indiceEnCarrito].cantidad = nuevaCantidad;
+    } else {
+      itemsActualizados.push({
+        idProducto: producto._id,
+        cantidad: nuevaCantidad
+      });
+    }
+    const carritoActualizado = {
+      items: itemsActualizados
+    };
+  
+    this.carrito = carritoActualizado;
+    return this.save();
 };
-
-module.exports = class Usuario{
-    constructor(id,nombres, apellidos,email,password,isAdmin){
-        this.id=id;
-        this.nombres=nombres;
-        this.apellidos=apellidos;
-        this.email=email;
-        this.password=password;
-        this.isAdmin=isAdmin;
-    }
-    save(){
-        getUsuariosFromFile(usuarios => {
-            console.log(usuarios)
-            usuarios.push(this);
-            fs.writeFile(u, JSON.stringify(usuarios), err => {
-              console.log(err);
-            });
-        });
-    }
-    static fetchAll(cb) {
-        getUsuariosFromFile(cb);
-    }
-    static async getAll() {
-        return JSON.parse(fs.readFileSync(u, `utf-8`));
-    }
-
-}
+  
+usuarioSchema.methods.deleteItemDelCarrito = function(idProducto) {
+    const itemsActualizados = this.carrito.items.filter(item => {
+      return item.idProducto.toString() !== idProducto.toString();
+    });
+    this.carrito.items = itemsActualizados;
+    return this.save();
+};
+  
+usuarioSchema.methods.clearCarrito = function() {
+    this.carrito = { items: [] };
+    return this.save();
+};
+  
+module.exports = mongoose.model('Usuarios', usuarioSchema);
