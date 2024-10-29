@@ -16,7 +16,7 @@ exports.postCrearProducto = (req, res, next) => {
     const descripcion = req.body.descripcion;
     const caracteristicas = req.body.caracteristicas.split(',').map(c => c.trim());
 
-    const categoriaId = req.categorias.find(catId => catId.categoriaName === req.body.categoria);
+    const categoriaId = req.categorias.find(catId => catId.categoriaRuta === req.body.categoria);
 
     const producto = new Producto({
         nombreproducto: nombreproducto,
@@ -77,7 +77,7 @@ exports.postEditProductos = (req, res, next) => {
     const urlImagen = req.body.urlImagen;
     const descripcion = req.body.descripcion;
     const caracteristicas = req.body.caracteristicas.split(',').map(c => c.trim()); // Convierte en array
-    const categoriaId = req.categorias.find(catId => catId.categoriaName === req.body.categoria);
+    const categoriaId = req.categorias.find(catId => catId.categoriaRuta === req.body.categoria);
 
     Producto.findById(productoId)
         .then(producto => {

@@ -5,6 +5,10 @@ const categoriaSchema = new Schema({
     categoriaName: {
         type: String,
         required: true
+    },
+    categoriaRuta: {
+        type: String,
+        required: true
     }
 });
 

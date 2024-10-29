@@ -1,40 +1,38 @@
 const Producto = require('../models/producto');
 const Categoria = require('../models/categoria');
+
 exports.getProductos = (req, res) => {
-    const categoria_ruta = req.params.categoria; // Obtener la categoría desde los parámetros de la ruta
+    const categoria_ruta = req.params.categoria;
 
     Promise.all([
-      Categoria.find(),
-      Producto.find().populate('categoria') // Aquí usamos populate para obtener la información de la categoría completa
+        Categoria.find(),
+        Producto.find().populate('categoria') // Obtener todos los productos y popular la categoría asociada
     ])
-      .then(([categorias, productos]) => {
+    .then(([categorias, productos]) => {
         const categoriasDisponibles = {}; 
-    
+
         categorias.forEach(cat => {
-          categoriasDisponibles[cat._id.toString()] = cat.categoriaName;
+            categoriasDisponibles[cat.categoriaRuta] = cat.categoriaName;
         });
-    
+
         let productosFiltrados = productos;
-    
         if (categoria_ruta) {
-          const categoriaId = categorias.find(cat => cat.categoriaName === categoria_ruta)?._id;
-          if (categoriaId) {
-            productosFiltrados = productos.filter(producto => producto.categoria._id.toString() === categoriaId.toString());
-          }
+            const categoriaId = categorias.find(cat => cat.categoriaRuta === categoria_ruta)?._id;
+            if (categoriaId) {
+                productosFiltrados = productos.filter(producto => producto.categoria._id.toString() === categoriaId.toString());
+            }
         }
-    
+
         const titulo = categoria_ruta ? categoriasDisponibles[categoria_ruta] : "Página principal de la Tienda";
-    
+
         res.render('tienda/index', {
-          prods: productosFiltrados,
-          titulo: titulo,
-          path: `/${categoria_ruta || ''}`
+            prods: productosFiltrados,
+            titulo: titulo,
+            path: `/${categoria_ruta || ''}`
         });
-      })
-      .catch(err => console.log(err));
-    
+    })
+    .catch(err => console.log(err)); 
 };
-  
 
 exports.getProducto = (req, res) => {
     const idProducto = req.params.idProducto;

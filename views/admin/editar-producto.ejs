@@ -42,11 +42,11 @@
                 <div class="input-form">
                     <label for="categoria">Categoría</label>
                     <select id="categoria" name="categoria">
-                        <option value="mobile" <% if (modoEdicion && producto.categoria.categoriaName === 'mobile') { %>selected<% } %>>Mobile</option>
-                        <option value="tv_audio" <% if (modoEdicion && producto.categoria.categoriaName === 'tv_audio') { %>selected<% } %>>TV & Audio</option>
-                        <option value="electrodomesticos" <% if (modoEdicion && producto.categoria.categoriaName === 'electrodomesticos') { %>selected<% } %>>Electrodomésticos</option>
-                        <option value="tecnologia_ai" <% if (modoEdicion && producto.categoria.categoriaName === 'tecnologia_ai') { %>selected<% } %>>Tecnología AI</option>
-                        <option value="ventas_especiales" <% if (modoEdicion && producto.categoria.categoriaName === 'ventas_especiales') { %>selected<% } %>>Ventas Especiales</option>
+                        <option value="mobile" <% if (modoEdicion && producto.categoria.categoriaRuta === 'mobile') { %>selected<% } %>>Mobile</option>
+                        <option value="tv_audio" <% if (modoEdicion && producto.categoria.categoriaRuta === 'tv_audio') { %>selected<% } %>>TV & Audio</option>
+                        <option value="electrodomesticos" <% if (modoEdicion && producto.categoria.categoriaRuta === 'electrodomesticos') { %>selected<% } %>>Electrodomésticos</option>
+                        <option value="tecnologia_ai" <% if (modoEdicion && producto.categoria.categoriaRuta === 'tecnologia_ai') { %>selected<% } %>>Tecnología AI</option>
+                        <option value="ventas_especiales" <% if (modoEdicion && producto.categoria.categoriaRuta === 'ventas_especiales') { %>selected<% } %>>Ventas Especiales</option>
                     </select>
                 </div>
 
@@ -83,6 +83,14 @@
             } else {
                 previewImage.src = 'https://via.placeholder.com/150'; // Imagen predeterminada
             }
+        });
+
+        // Desactivar el boton crear para evitar crear dos productos al darle dos clics
+        const form = document.querySelector('.form-control');
+        const submitButton = form.querySelector('.button-primary');
+
+        form.addEventListener('submit', (event) => {
+            submitButton.disabled = true; // Desactivar el botón
         });
     </script>
 </body>

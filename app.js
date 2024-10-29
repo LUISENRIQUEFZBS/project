@@ -87,11 +87,11 @@ mongoose
         console.log('No hay categorías, creando categorías por defecto...');
         
         const categorias = [
-          { categoriaName: 'mobile' },
-          { categoriaName: 'tv_audio' },
-          { categoriaName: 'electrodomesticos' },
-          { categoriaName: 'tecnologia_ai' },
-          { categoriaName: 'ventas_especiales' }
+          { categoriaName: 'Mobil' , categoriaRuta: 'mobile'},
+          { categoriaName: 'TV & Audio', categoriaRuta: 'tv_audio'},
+          { categoriaName: 'Electrodomésticos', categoriaRuta: 'electrodomesticos'},
+          { categoriaName: 'Tecnología AI', categoriaRuta: 'tecnologia_ai'},
+          { categoriaName: 'Ventas Especiales', categoriaRuta: 'ventas_especiales'}
         ];
 
         Categoria.insertMany(categorias)
