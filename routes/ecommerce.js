@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const usuarioController= require('../controllers/usuario');
 const tiendaController = require('../controllers/tienda');
+const isAuth = require('../middleware/is-auth');
 
 // Rutas específicas primero para no enviar a la pagina de categorias
-router.get('/pedidos', usuarioController.isLoggedIn, tiendaController.getPedidos);
-router.post('/crear-pedido', usuarioController.isLoggedIn, tiendaController.postPedido);
+router.get('/pedidos',isAuth, tiendaController.getPedidos);
+router.post('/crear-pedido',isAuth, tiendaController.postPedido);
 
-router.get('/productos/:idProducto', usuarioController.isLoggedIn, tiendaController.getProducto); //detalles productos
+router.get('/productos/:idProducto', tiendaController.getProducto); //detalles productos
 
-router.get('/carrito', usuarioController.isLoggedIn, tiendaController.getCarrito);
-router.get('/api/carrito', usuarioController.isLoggedIn, tiendaController.getCarritoAPI); // info para el carrito
-router.post('/carrito', usuarioController.isLoggedIn, tiendaController.postCarrito);
-router.post('/eliminar-producto-carrito', usuarioController.isLoggedIn, tiendaController.postEliminarProductoCarrito);
+router.get('/carrito',isAuth, tiendaController.getCarrito);
+router.get('/api/carrito',isAuth, tiendaController.getCarritoAPI); // info para el carrito
+router.post('/carrito',isAuth, tiendaController.postCarrito);
+router.post('/eliminar-producto-carrito',isAuth, tiendaController.postEliminarProductoCarrito);
 
 // Ruta general para productos
-router.get('/:categoria?', usuarioController.isLoggedIn, tiendaController.getProductos);
+router.get('/:categoria?', tiendaController.getProductos);
 
 module.exports = router;

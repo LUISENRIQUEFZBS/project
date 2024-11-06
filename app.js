@@ -1,21 +1,20 @@
 const path = require('path');
-
 const express = require('express');
 
 const raizDir = require('./utils/path');
 
 const bodyParser = require('body-parser')
-
-// cookieParser
-const cookieParser= require('cookie-parser')
-// from class
-
+const csrf = require('csurf');
+const flash = require('connect-flash');
 
 // mongoose 
-const mongoose = require('mongoose');   
+const mongoose = require('mongoose');  
 
-//from project
-const usuarioRouter = require('./routes/usuario')
+// Cookies
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const MONGODB_URI = 'mongodb+srv://luisvilameza:secreto@cluster0.wn91f.mongodb.net/nuevaDB?retryWrites=true&w=majority&appName=Cluster0';
+// from class 
 
 const Usuario = require('./models/usuario');
 const ecommerceRouter = require('./routes/ecommerce')
@@ -23,11 +22,20 @@ const errorController = require('./controllers/error');
 
 
 const adminRouter = require('./routes/admin');
+
+const authRoutes = require('./routes/auth');
+
 const Categoria = require('./models/categoria');
 
 
 const app = express();
 
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'sessions'
+});
+
+const csrfProtection = csrf();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -35,15 +43,24 @@ app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(raizDir, 'public')));
+app.use(session({ secret: 'algo muy secreto', resave: false, saveUninitialized: false, store: store }));
+
+app.use(csrfProtection);
+app.use(flash());
 
 app.use((req, res, next) => {
-  Usuario.findById('67216ed028f8808af382b85e')
-      .then(usuario => {
-          // console.log(usuario)
-          req.usuario = usuario;
-          next();
-      })
-      .catch(err => console.log(err));
+  console.log(req.session);
+  if(!req.session.usuario){
+    return next();
+  }
+  Usuario.findById(req.session.usuario._id)
+    .then(usuario => {
+      console.log(usuario)
+      req.usuario = usuario;
+      next();
+    })
+    .catch(err => console.log(err));
+
 });
 
 app.use((req, res, next) => {
@@ -61,25 +78,22 @@ app.use((req, res, next) => {
     });
 });
 
-
-// cookie parser
-app.use(cookieParser())
+app.use((req, res, next) => {
+  res.locals.autenticado = req.session.autenticado;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 app.use('/admin', adminRouter);
-
-app.use('/usuario',usuarioRouter)
+app.use(authRoutes); // antes para envitar problemas
 app.use(ecommerceRouter);
-
-
 
 app.use(errorController.get404);
 
 const port=3000;
 
 mongoose
-  .connect(
-    'mongodb+srv://luisvilameza:secreto@cluster0.wn91f.mongodb.net/nuevaDB?retryWrites=true&w=majority&appName=Cluster0'
-  )
+  .connect(MONGODB_URI)
   .then(result => {
     console.log(result);
     Categoria.find().then(result => {

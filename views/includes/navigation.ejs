@@ -34,19 +34,23 @@
                 </a>
             </li>
 
-            <li class="main-header__item box-center_flex">
-                <a class="<%= path === '/admin/productos' ? 'active' : '' %>" href="/admin/productos">
-                    Admin Productos
-                </a>
-            </li>
+            <% if (autenticado) { %>
+                <li class="main-header__item box-center_flex">
+                    <a class="<%= path === '/admin/productos' ? 'active' : '' %>" href="/admin/productos">
+                        Admin Productos
+                    </a>
+                </li>
+            <% } %>
 
-            <li class="main-header__item box-center_flex">
-                <a class="<%= path === '/pedidos' ? 'active' : '' %>" href="/pedidos">
-                    Pedidos
-                </a>
-            </li>
+            <% if (autenticado) { %>
+                <li class="main-header__item box-center_flex">
+                    <a class="<%= path === '/pedidos' ? 'active' : '' %>" href="/pedidos">
+                        Pedidos
+                    </a>
+                </li>
+            <% } %>
    
-            <% if (typeof user == 'object' && user) { %>
+            <!-- <% if (typeof user == 'object' && user) { %>
                 <form class="box-center_flex" action="/usuario/logout" method="POST">
                     <a  class="box-center_flex " >
                         <button type="submit" style="background-color:transparent;border:none;font-size:inherit;  cursor:pointer;">
@@ -60,13 +64,165 @@
                         <i class="fa-regular fa-user"></i>
                     </a>
                 </li>
+            <% } %> -->
+            <!-- <li class="main-header__item box-center_flex">
+                <a class="<%= path === '/ingresar' ? 'active' : '' %>" href="/ingresar">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+            </li> -->
+            <% if (!autenticado) { %>
+                <li class="main-header__item box-center_flex">
+                    <a class="<%= path === '/ingresar' ? 'active' : '' %>" href="/ingresar">
+                        <i class="fa-regular fa-user"></i>
+                    </a>
+                </li>
+                <li class="main-header__item box-center_flex">
+                    <a class="<%= path === '/registrarse' ? 'active' : '' %>" href="/registrarse">Registrarse</a>
+                </li>
+            <% } else { %>
+                <li class="main-header__item box-center_flex">
+                    <form action="/salir" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </form>
+                </li>
             <% } %>
             <!-- <li class="main-header__item box-center_flex">
                 <a href="/carrito">
                 <i class="fa-solid fa-cart-shopping"></i>
                 </a>
             </li> -->
-            <li class="main-header__item box-center_flex carrito-contenedor">
+            
+            <% if (autenticado) { %>
+                <li class="main-header__item box-center_flex carrito-contenedor">
+                    <a href="/api/carrito" class="cart-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                    <div class="cart-dropdown">
+                        <!-- Aquí se insertarán dinámicamente los productos -->
+                        <ul class="cart-items">
+                            <!-- Los elementos del carrito irán aquí -->
+                        </ul>
+                        <div class="cart-total">
+                            Total: <span id="cart-total-price">0</span>
+                        </div>
+                        <a href="/carrito" class="view-cart">Ver Carrito</a>
+                    </div>
+                </li>
+            <% } %>
+                        
+            <li class="main-header__item box-center_flex">
+                <a><i class="fa-solid fa-magnifying-glass"></i></a>
+            </li>
+            <!-- <% if (typeof user == 'object' && user){ %>
+                <li class="main-header__item box-center_flex"><%= user.nombres %></li>
+            <% }%>  -->
+            
+        </ul>
+    </nav>
+</header>
+
+<nav class="mobile-nav">
+    <ul class="mobile-nav__item-list">
+        <!-- falta agregar estilos para mobil en esta imagen -->
+        <!-- <li class="mobile__item__logo box-center_flex"> 
+            <a href="/">
+                <div class="logo-container">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/014/018/566/small_2x/samsung-logo-on-transparent-background-free-vector.jpg" alt="Samsung Logo">
+                </div>
+            </a>
+        </li>             -->
+        <li class="mobile-nav__item">
+            <a  href="/mobile">
+                mobile
+            </a>
+        </li>
+        <li class="mobile-nav__item">
+            <a href="/tv_audio">
+                TV & Audio
+            </a>
+        </li>
+        <li class="mobile-nav__item">
+            <a href="/electrodomesticos">
+                Electrodomésticos
+            </a>
+        </li>
+        <li class="mobile-nav__item">
+            <a  href="/tecnologia_ai">
+                Tecnología AI
+            </a>
+        </li>
+        <li class="mobile-nav__item">
+            <a  href="/ventas_especiales">
+                Ventas especiales
+            </a>
+        </li>
+
+        <% if (autenticado) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/admin/productos' ? 'active' : '' %>" href="/admin/productos">
+                    Admin Productos
+                </a>
+            </li>
+        <% } %>
+
+        <% if (autenticado) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/pedidos' ? 'active' : '' %>" href="/pedidos">
+                    Pedidos
+                </a>
+            </li>
+        <% } %>
+
+        <!-- <% if (typeof user == 'object' && user) { %>
+            <form class="box-center_flex" action="/usuario/logout" method="POST">
+                <a  class="box-center_flex " >
+                    <button type="submit" style="background-color:transparent;border:none;font-size:inherit;  cursor:pointer;">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </a>
+            </form>
+        <% } else{ %>  
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/usuario/login">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+            </li>
+        <% } %> -->
+        <!-- <li class="mobile-nav__item">
+            <a class="<%= path === '/ingresar' ? 'active' : '' %>" href="/ingresar">
+                <i class="fa-regular fa-user"></i>
+            </a>
+        </li> -->
+        <% if (!autenticado) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/ingresar' ? 'active' : '' %>" href="/ingresar">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/registrarse' ? 'active' : '' %>" href="/registrarse">Registrarse</a>
+            </li>
+        <% } else { %>
+            <li class="mobile-nav__item">
+                <form action="/salir" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </form>
+            </li>
+        <% } %>
+        <!-- <li class="mobile-nav__item">
+            <a href="/carrito">
+            <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+        </li> -->
+        
+        <% if (autenticado) { %>
+            <li class="mobile__item box-center_flex carrito-contenedor">
                 <a href="/api/carrito" class="cart-icon">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </a>
@@ -80,19 +236,18 @@
                     </div>
                     <a href="/carrito" class="view-cart">Ver Carrito</a>
                 </div>
-                
             </li>
-                        
-            <li class="main-header__item box-center_flex">
-                <a><i class="fa-solid fa-magnifying-glass"></i></a>
-            </li>
-            <% if (typeof user == 'object' && user){ %>
-                <li class="main-header__item box-center_flex"><%= user.nombres %></li>
-            <% }%> 
-            
-        </ul>
-    </nav>
-</header>
+        <% } %>
+                    
+        <li class="mobile-nav__item">
+            <a><i class="fa-solid fa-magnifying-glass"></i></a>
+        </li>
+        <!-- <% if (typeof user == 'object' && user){ %>
+            <li class="mobile-nav__item"><%= user.nombres %></li>
+        <% }%>  -->
+        
+    </ul>
+</nav>
 
 <!-- menu de carrito -->
 <script src="/js/carrito.js"></script>

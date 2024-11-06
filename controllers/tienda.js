@@ -31,7 +31,7 @@ exports.getProductos = (req, res) => {
         res.render('tienda/index', {
             prods: productosFiltrados,
             titulo: titulo,
-            path: `/${categoria_ruta || ''}`
+            path: `/${categoria_ruta || ''}`,
         });
     })
     .catch(err => console.log(err)); 
@@ -47,7 +47,8 @@ exports.getProducto = (req, res) => {
             res.render('tienda/detalle-producto', {
                 producto: producto,
                 titulo: producto.nombre,
-                path: '/productos'
+                path: '/productos',
+                autenticado: req.session.autenticado
             });
         })
         .catch(err => console.log(err));
@@ -61,7 +62,8 @@ exports.getCarrito = (req, res, next) => {
             res.render('tienda/carrito', {
                 path: '/carrito',
                 titulo: 'Mi Carrito',
-                productos: productos
+                productos: productos,
+                autenticado: req.session.autenticado,
             });
         })
         .catch(err => console.log(err));
@@ -135,7 +137,8 @@ exports.getPedidos = (req, res, next) => {
             res.render('tienda/pedidos', {
                 path: '/pedidos',
                 titulo: 'Mis Pedidos',
-                pedidos: pedidos
+                pedidos: pedidos,
+                autenticado: req.session.autenticado
             });
         })
         .catch(err => console.log(err));
