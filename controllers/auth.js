@@ -87,6 +87,9 @@ exports.postRegistrarse = (req, res, next) => { // agregar mas campos
         .hash(password, 12)
         .then(hashedPassword => {
           const usuario = new Usuario({
+            nombres: "Test",
+            apellidos: "Testing",
+            isAdmin: false,
             email: email,
             password: hashedPassword,
             carrito: { items: [] }
